@@ -179,8 +179,8 @@ var gamifyapp = angular.module('mediasoftApp', ['ngRoute', 'jugnoon-validate'])
   }])
 
 .controller('mainController', ['$scope', 'jangularvalidate', function ($scope, jangularvalidate) {
-	$scope.message = "";
-    $scope.messagecss="alert-danger";
+        $scope.message = "";
+        $scope.messagecss="alert-danger";
 	$scope.validationLog = [];
 	$scope.headerTitle = "Create Validator Form";
 	if(typeof formConfig.header != 'undefined') {
@@ -192,39 +192,39 @@ var gamifyapp = angular.module('mediasoftApp', ['ngRoute', 'jugnoon-validate'])
 		$scope.formConfig =  formConfig.formAttributes;
 	}
 
-    $scope.isCheckBoxChecked = function (option, obj) {
-		if(typeof obj != "undefined") {
-			var _match = false;
-			for (var i = 0 ; i < obj.length; i++) {
-				if (obj[i].id == option) {
-					_match = true;
-				}
-			}
-			return _match;
-		}
-    };
+        // for using checkbox check / uncheck processing
+        $scope.isCheckBoxChecked = function (option, obj) {
+  	        if(typeof obj != "undefined") {
+	  	        var _match = false;
+		        for (var i = 0 ; i < obj.length; i++) {
+		        	if (obj[i].id == option) {
+			        	_match = true;
+			        }
+		         }
+	        	return _match;
+	        }
+        };
 
+    // for using checkbox check / uncheck processing
     $scope.syncCheckBox = function (bool, item, obj) {
-		if(typeof obj != "undefined") {
-			if (bool) {
-				// add item
-				obj.push(item);
-			} else {
-				// remove item
-				for (var i = 0 ; i < obj.length; i++) {
-					if (obj[i].id == item.id) {
-						obj.splice(i, 1);
-					}
+	if(typeof obj != "undefined") {
+		if (bool) {
+			// add item
+			obj.push(item);
+		} else {
+			// remove item
+			for (var i = 0 ; i < obj.length; i++) {
+				if (obj[i].id == item.id) {
+					obj.splice(i, 1);
 				}
 			}
 		}
+	}
     };
 	
 	
   $scope.create = function() {
-	  // reset
 	  $scope.validationLog = jangularvalidate.formvalidate($scope.formConfig);
-      console.log($scope.validationLog);
 	  if($scope.validationLog.length == 0) {
 		  // validation ok
 		  $scope.message = "Form processed successfully";
@@ -240,11 +240,9 @@ var gamifyapp = angular.module('mediasoftApp', ['ngRoute', 'jugnoon-validate'])
   $scope.validate = function(obj) {
 	 if(typeof obj.validate != "undefined") {
 		 var output = jangularvalidate.validate(obj.validate, obj.value, obj.values);
-		 console.log(output);
 		 obj.css = output.css;
 		 obj.errorMsg = output.message;
 		 obj.isvalidated = output.isvalid;
-		 console.log(obj);
 	 }
   };
   
